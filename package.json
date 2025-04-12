@@ -1,0 +1,18 @@
+{
+  "name": "googleoauth",
+  "version": "1.0.0",
+  "description": "An SSO implementation using OAuth 2.0 to enable secure, centralized authentication across multiple services.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "passport": "^0.7.0"
+  }
+}
