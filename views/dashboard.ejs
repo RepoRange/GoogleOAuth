@@ -2,15 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | OAuth Demo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-    <h1>Dashboard</h1>
-    
-    
-    <%= user.name %>
-    <%= user.message %>
-    
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-700">Welcome, <%= user.name %></span>
+                    <a href="/logout" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">User Profile</h2>
+                <p class="text-gray-600"><%= message %></p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-2">Profile Details</h3>
+                    <div class="space-y-2">
+                        <p><strong>Name:</strong> <%= user.name %></p>
+                        <p><strong>Email:</strong> <%= user.email %></p>
+                        <p><strong>Google ID:</strong> <%= user.googleId %></p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-2">Account Status</h3>
+                    <div class="space-y-2">
+                        <p><strong>Status:</strong> <span class="text-green-500">Active</span></p>
+                        <p><strong>Authentication:</strong> Google OAuth</p>
+                        <p><strong>Last Login:</strong> <%= new Date().toLocaleString() %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+
+
+
+
+
+</html></body>    </footer>        </div>            <p class="text-center text-gray-600">© 2024 OAuth Demo. All rights reserved.</p>            <p class="text-center text-gray-600">© 2024 OAuth Demo. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

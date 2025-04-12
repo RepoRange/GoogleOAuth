@@ -4,7 +4,7 @@ ejs -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OAuth Landing Page</title>
+    <title>OAuth Demo | Secure Authentication</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Icons -->
@@ -15,78 +15,99 @@ ejs -->
 </head>
 <body class="bg-gray-50">
     <!-- Navigation Bar -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg fixed w-full z-10">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="#" class="text-2xl font-bold text-blue-600">OAuth Demo</a>
+                    <a href="#" class="flex items-center">
+                        <span class="material-icons text-blue-600 text-3xl mr-2">security</span>
+                        <span class="text-2xl font-bold text-gray-800">OAuth Demo</span>
+                    </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">Home</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">About</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">Services</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition">Features</a>
+                    <a href="#benefits" class="text-gray-600 hover:text-blue-600 transition">Benefits</a>
+                    <a href="#login" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Sign In</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="py-20 bg-gradient-to-r from-blue-500 to-blue-600">
+    <div class="pt-24 pb-32 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center" data-aos="fade-up">
-                <h1 class="text-4xl font-bold text-white mb-4">Welcome to OAuth Demo</h1>
-                <p class="text-xl text-white opacity-90">Secure authentication made simple with Google OAuth</p>
+                <h1 class="text-5xl font-bold text-white mb-6">Secure Authentication Made Simple</h1>
+                <p class="text-xl text-white opacity-90 mb-8 max-w-2xl mx-auto">Experience seamless and secure authentication with Google OAuth. Perfect for modern web applications.</p>
+                <a href="#login" class="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition shadow-lg">
+                    <span class="material-icons mr-2">login</span>
+                    Get Started
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="max-w-7xl mx-auto px-4 py-16">
         <!-- Login Card -->
-        <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-            <div class="px-6 py-8">
-                <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Sign In</h2>
-                <div class="space-y-4">
-                    <div class="space-y-4">
-                        <a href="/auth/google" class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition cursor-pointer">
-                            <img src="https://www.google.com/favicon.ico" alt="Google" class="h-5 w-5 mr-2">
-                            Sign in with Google
-                        </a>
-                    </div>
+        <div id="login" class="max-w-md mx-auto bg-white rounded-xl shadow-xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            <div class="px-8 py-10">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome Back</h2>
+                <div class="space-y-6">
+                    <p class="text-center text-gray-600 mb-6">Sign in with your Google account to continue</p>
+                    <a href="/auth/google" 
+                       class="w-full flex items-center justify-center px-6 py-3 border-2 border-gray-300 rounded-lg shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition duration-200 transform hover:scale-[1.02]">
+                        <img src="https://www.google.com/favicon.ico" alt="Google" class="h-6 w-6 mr-3">
+                        Sign in with Google
+                    </a>
                 </div>
             </div>
         </div>
 
         <!-- Features Section -->
-        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="p-6 bg-white rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-blue-600 mb-4">
-                    <span class="material-icons text-3xl">security</span>
+        <div id="features" class="mt-24 mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Why Choose Our OAuth Solution?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-blue-600 mb-4">
+                        <span class="material-icons text-4xl">security</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Enterprise Security</h3>
+                    <p class="text-gray-600">Bank-grade security protocols and OAuth 2.0 standards to protect your users' data.</p>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Secure Authentication</h3>
-                <p class="text-gray-600">Industry-standard security protocols to keep your data safe.</p>
-            </div>
-            <div class="p-6 bg-white rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="400">
-                <div class="text-blue-600 mb-4">
-                    <span class="material-icons text-3xl">speed</span>
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-blue-600 mb-4">
+                        <span class="material-icons text-4xl">speed</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Lightning Fast</h3>
+                    <p class="text-gray-600">Quick integration and authentication process with minimal latency.</p>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Quick Setup</h3>
-                <p class="text-gray-600">Get started in minutes with our easy integration process.</p>
-            </div>
-            <div class="p-6 bg-white rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="500">
-                <div class="text-blue-600 mb-4">
-                    <span class="material-icons text-3xl">devices</span>
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="500">
+                    <div class="text-blue-600 mb-4">
+                        <span class="material-icons text-4xl">devices</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Cross-Platform</h3>
+                    <p class="text-gray-600">Seamless experience across all devices and platforms with responsive design.</p>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Cross-Platform</h3>
-                <p class="text-gray-600">Works seamlessly across all your devices and platforms.</p>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">OAuth Demo</h3>
+                <p class="text-gray-400">© 2024 OAuth Demo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Initialize AOS animation library
-        AOS.init();
+        AOS.init({
+            duration: 800,
+            once: true
+        });
     </script>
 </body>
 </html>
