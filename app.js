@@ -1,55 +1,44 @@
+// 1. Dependencies/Imports
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import createSessionConfig from './config/sessionConfig.js';
+
+// 2. Import Local Configurations
+import connectDB from './config/database.js';
 import passportConfig from './config/passport.js';
 
-
-
-
-// Initialize environment variables
+// 3. Initialize Environment Variables
 dotenv.config();
 
+// 4. Create Express App
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Database connection
-import connectDB from './config/database.js';
+// 5. Database Connection
 connectDB();
 
-// View engine setup
+// 6. View Engine Setup
 app.set('view engine', 'ejs');
 
-// Middleware Configuration
+// 7. Basic Middleware Setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session Configuration
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET || "your-secret-key",
-        resave: false,
-        saveUninitialized: false,
-        store: MongoStore.create({
-            mongoUrl: process.env.MONGO_URI,
-            collectionName: "sessions",
-            ttl: 24 * 60 * 60,
-            autoRemove: "native",
-        }),
-        cookie: {
-            maxAge: 24 * 60 * 60 * 1000,
-            secure: process.env.NODE_ENV === 'production',
-        },
-    })
-);
+const sessionConfig = createSessionConfig(app);
+app.use(session(sessionConfig));
 
-// Initialize Passport
+
+
+
+// 9. Authentication Middleware Setup
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Authentication middleware
+// 10. Authentication Middleware Function
 const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
@@ -57,12 +46,13 @@ const ensureAuthenticated = (req, res, next) => {
     res.redirect('/');
 };
 
-// Routes
+// 11. Routes Configuration
+// Public Routes
 app.get('/', (req, res) => {
     res.render('index');
 });
 
-// OAuth Routes
+// Authentication Routes
 app.get('/auth/google',
     passport.authenticate('google', { 
         scope: ['profile', 'email'],
@@ -73,17 +63,14 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
     passport.authenticate('google', { 
         failureRedirect: '/',
-        failureFlash: true
+        failureFlash: false,
     }),
     (req, res) => {
-        res.render("dashboard", {
-            user: req.user,
-            message: "Welcome to your dashboard!"
-        });
+        res.redirect("/dashboard");
     }
 );
 
-// Protected Route Example
+// Protected Routes
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
     res.render('dashboard', {
         user: req.user,
@@ -91,7 +78,7 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
     });
 });
 
-// Logout Route
+// Auth Management Routes
 app.get('/logout', (req, res) => {
     req.logout((err) => {
         if (err) {
@@ -102,15 +89,15 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Error Handler
+// 12. Error Handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render('error', { error: err });
 });
 
-// Start Server
+// 13. Server Initialization
 app.listen(PORT, () => {
-    console.log(`Server is running `);
+    console.log(`Server is running...`);
 });
 
 

@@ -4,32 +4,33 @@ import passport from 'passport';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// Dynamic callback URL based on environment
+const callbackURL = process.env.NODE_ENV === 'production'
+    ? 'https://googleoauth-3vf2.onrender.com/auth/google/callback'
+    : 'http://localhost:3000/auth/google/callback';
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // Updated callback URL for production
-    callbackURL: 'https://googleoauth-3vf2.onrender.com/auth/google/callback',
-    // Add proxy configuration for secure HTTPS
+    callbackURL: callbackURL,
     proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        // check if user already exists in our db
         const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {
-            // user already exists
             return done(null, existingUser);
         }
-        // if not, create new user in our db
-        const newUser = await new User({
+        
+        const newUser = await User.create({
             googleId: profile.id,
             email: profile.emails[0].value,
             name: profile.displayName,
         });
-        await newUser.save();
-        done(null, newUser);
+        
+        return done(null, newUser);
     } catch (err) {
-        console.error(err);
-        done(err, null);
+        console.error('Google Strategy Error:', err);
+        return done(err, null);
     }
 }));
 
@@ -37,16 +38,18 @@ passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
     try {
-        const user = User.findById(id);
+        const user = await User.findById(id);
+        //console.log('Deserialized User:');
+        
         if (!user) {
             return done(null, false, { message: "User not found" });
         }
-        done(null, user);
+        return done(null, user);
     } catch (err) {
-        console.error(err);
-        done(err, null);
+        console.error('Deserialize Error:', err);
+        return done(err, null);
     }
 });
 
