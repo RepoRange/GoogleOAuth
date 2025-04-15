@@ -1,68 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | OAuth Demo</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="bg-gray-50">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold text-blue-600">Dashboard</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-700">Welcome, <%= user.name %></span>
-                    <a href="/logout" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-                        Logout
-                    </a>
-                </div>
-            </div>
+    <nav class="bg-gray-800 shadow-md w-full">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <span class="material-icons text-blue-400 text-3xl mr-2"
+              >dashboard</span
+            >
+            <span class="text-2xl font-bold text-gray-100">Dashboard</span>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span class="text-gray-300">Welcome, <%= user.name %></span>
+            <a
+              href="/auth/logout"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition font-semibold"
+            >
+              Logout
+            </a>
+          </div>
         </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">User Profile</h2>
-                <p class="text-gray-600"><%= message %></p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold mb-2">Profile Details</h3>
-                    <div class="space-y-2">
-                        <p><strong>Name:</strong> <%= user.name %></p>
-                        <p><strong>Email:</strong> <%= user.email %></p>
-                        <p><strong>Google ID:</strong> <%= user.googleId %></p>
-                    </div>
-                </div>
-                
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold mb-2">Account Status</h3>
-                    <div class="space-y-2">
-                        <p><strong>Status:</strong> <span class="text-green-500">Active</span></p>
-                        <p><strong>Authentication:</strong> Google OAuth</p>
-                        <p><strong>Last Login:</strong> <%= new Date().toLocaleString() %></p>
-                    </div>
-                </div>
-            </div>
+    <div class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+      <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
+        <div class="mb-6 border-b border-gray-700 pb-4">
+          <h2 class="text-2xl font-bold text-gray-100 mb-1">User Profile</h2>
+          <p class="text-gray-400"><%= message %></p>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <h3 class="text-lg font-semibold mb-3 text-gray-200">
+              Profile Details
+            </h3>
+            <div class="space-y-2 text-gray-300">
+              <p><strong>Name:</strong> <%= user.name %></p>
+              <p><strong>Email:</strong> <%= user.email %></p>
+              <p><strong>Google ID:</strong> <%= user.googleId %></p>
+            </div>
+          </div>
+
+          <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <h3 class="text-lg font-semibold mb-3 text-gray-200">
+              Account Status
+            </h3>
+            <div class="space-y-2 text-gray-300">
+              <p>
+                <strong>Status:</strong>
+                <span class="text-green-400 font-semibold">Active</span>
+              </p>
+              <p><strong>Authentication Method:</strong> Google OAuth 2.0</p>
+              <p>
+                <strong>Session Start:</strong> <%= new Date().toLocaleString()
+                %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white shadow-lg mt-8">
-        <div class="max-w-7xl mx-auto px-4 py-4">
-            <p class="text-center text-gray-600">© 2024 OAuth Demo. All rights reserved.</p>    
-        </div>        
+    <footer
+      class="bg-gray-800 text-gray-400 py-4 mt-8 border-t border-gray-700"
+    >
+      <div class="max-w-7xl mx-auto px-4">
+        <p class="text-center text-sm">
+          &copy; <%= new Date().getFullYear() %> OAuth Demo. All rights
+          reserved.
+        </p>
+      </div>
     </footer>
-</body>                      
-  
+  </body>
 </html>
