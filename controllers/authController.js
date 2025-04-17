@@ -6,7 +6,9 @@ import passport from "passport";
  */
 export const googleAuth = passport.authenticate("google", {
   scope: ["profile", "email"],
-  prompt: "select_account", // Force account selection each time
+  prompt: "select_account",
+  accessType: "offline",
+  prompt: "consent", // Force account selection each time
 });
 
 /**

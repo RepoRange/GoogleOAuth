@@ -6,9 +6,21 @@ const createSessionConfig = (app) => {
     const isProduction = process.env.NODE_ENV === 'production';
 
     // Trust proxy in production (needed for secure cookies on platforms like Render)
+    //User Browser  ─── HTTPS ───▶  Render Proxy ─── HTTP ───▶  Express App
+    //Heroku terminates HTTPS → sends HTTP to your app
+    
+    //Express sees: HTTP "This is not secure!"
+    
+    //Secure session cookies won't be sent (session/login breaks)
+    //this allows the app to trust the proxy and treat the request as secure and send the secure cookie
     if (isProduction) {
         app.set('trust proxy', 1);
     }
+
+console.log('in sessionConfig.js');
+
+
+
 
     return {
         secret: process.env.secret, // 

@@ -31,16 +31,17 @@ app.set("view engine", "ejs");
 
 // 7. Basic Middleware Setup
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 const sessionConfig = createSessionConfig(app);
 app.use(session(sessionConfig));
 
 // 9. Passport Authentication Middleware Setup
 
-
 app.use(passport.initialize());
+
 app.use(passport.session());
+
+
 
 // 11. Routes Configuration
 app.use("/", mainRoutes);

@@ -16,6 +16,9 @@ passport.use(new GoogleStrategy({
     proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+        //console.log('Google Profile:', profile);
+        //console.log('Access Token:', accessToken);
+       // console.log('Refresh Token:', refreshToken);
         const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {
             return done(null, existingUser);
@@ -35,13 +38,15 @@ passport.use(new GoogleStrategy({
 }));
 
 passport.serializeUser((user, done) => {
+    console.log('Serialized User: add userid to the session');
     done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
     try {
+        console.log('Deserializing User adding the req.user to the request object');
         const user = await User.findById(id);
-        //console.log('Deserialized User:');
+        
         
         if (!user) {
             return done(null, false, { message: "User not found" });
