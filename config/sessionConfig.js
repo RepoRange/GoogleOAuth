@@ -17,7 +17,7 @@ const createSessionConfig = (app) => {
         app.set('trust proxy', 1);
     }
 
-console.log('in sessionConfig.js');
+//console.log('in sessionConfig.js');
 
 
 

@@ -38,13 +38,13 @@ passport.use(new GoogleStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-    console.log('Serialized User: add userid to the session');
+    //console.log('Serialized User: add userid to the session');
     done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
     try {
-        console.log('Deserializing User adding the req.user to the request object');
+       // console.log('Deserializing User adding the req.user to the request object');
         const user = await User.findById(id);
         
         
