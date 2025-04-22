@@ -39,13 +39,36 @@ export const googleCallbackRedirect = (req, res) => {
  * @param {import('express').NextFunction} next - Express next middleware function.
  */
 export const logoutUser = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      console.error("Logout error:", err);
-      // Pass the error to the error handling middleware
-      return next(err);
-    }
-    // On successful logout, redirect to the home page
-    res.redirect("/");
+ /*three things to do
+ *remove the user from tht session
+ *destroy the session from the store 
+ *clear the cookie from the browser
+ finally redirect to the home page */
+
+ req.logout((err)=>{
+  const isProduction = process.env.NODE_ENV === 'production';
+  if(err) return next (err);
+
+  req.session.destroy((err)=>{
+    //console.log("Session destroyed",err);
+    if(err) return next(err);
+
+  })
+  res.clearCookie("connect.sid",{
+    path:"/",
+    httpOnly:true,
+    secure: isProduction,
+    sameSite:isProduction ? "none" : "lax", 
   });
+  res.redirect("/");
+ // console.log("User logged out and session destroyed");
+
+ });
+
+
+
+
+
+
+
 };
