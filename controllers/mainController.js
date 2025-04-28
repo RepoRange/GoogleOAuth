@@ -5,5 +5,8 @@
  * @param {import('express').Response} res - Express response object.
  */
 export const getIndex = (req, res) => {
-  res.render("index");
+  if (req.isAuthenticated()){
+    return  res.redirect('/dashboard')
+  }
+  else res.render("index");
 };
