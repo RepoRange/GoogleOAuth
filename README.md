@@ -1,5 +1,5 @@
 # GoogleOAuth
-An SSO implementation using OAuth 2.0 to enable secure, centralized authentication across multiple services.
+An SSO implementation using OAuth 2.0 to enable secure, centralized authentication.
 
 
 ![GoogleOAuth Diagram](diagram.png)
